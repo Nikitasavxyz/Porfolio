@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
+    <!-- Подключение шрифта Inter из Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -16,6 +21,11 @@
             background-color: #ffffff;
             color: #000000;
             overflow-x: hidden;
+        }
+
+        /* Класс для применения шрифта Inter */
+        .font-inter {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         /* НАВИГАЦИЯ: по умолчанию белая для первого экрана */
@@ -97,7 +107,7 @@
         /* Секция 2: Текст манифеста */
         .about-section {
             max-width: 1200px;
-            padding: 5rem 3rem 3rem 3rem;
+            padding: 6rem 3rem 3rem 3rem;
             margin: 0 auto;
         }
 
@@ -279,7 +289,7 @@
     </section>
 
     <!-- Секция 2: Текст манифеста -->
-    <section id="info" class="about-section">
+    <section id="info" class="about-section font-inter">
         <div class="about-role">Houdini / CG Artist</div>
         <h1 class="about-text">
             I single-handedly build complex procedural setups, and make them beautiful.
@@ -290,7 +300,7 @@
     </section>
 
     <!-- Секция 3: Опыт и софт -->
-    <section class="experience-section">
+    <section class="experience-section font-inter">
         <div class="exp-column">
             <h3>Worked with:</h3>
             <ul class="exp-list">
