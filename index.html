@@ -63,7 +63,7 @@
             border-bottom: 1px solid #ffffff;
         }
 
-        /* Секция 1: Полноэкранный шоурил */
+        /* Секция 1: Полноэкранный шоурил (Десктоп) */
         .hero-section {
             position: relative;
             width: 100vw;
@@ -169,47 +169,67 @@
         }
 
         /* Мобильная адаптивность */
-@media (max-width: 768px) {
-    .nav-container { 
-        position: absolute; 
-        padding: 0 1.5rem; 
-        top: 1.5rem; 
-    }
-    
-    /* Секция с видео на мобильном: делаем ее выше */
-    .hero-section {
-        width: 100vw;
-        height: auto;
-        /* Увеличиваем высоту: пропорция 13/9 делает видео заметно выше, чем 16/9,
-           создавая тот самый кроп краев, который тебе нужен */
-        aspect-ratio: 13 / 9; 
-        overflow: hidden; /* Обязательно, чтобы скрыть лишние края видео */
-        position: relative;
-    }
+        @media (max-width: 768px) {
+            .nav-container { 
+                padding: 0 1.5rem; 
+                top: 1.5rem; 
+            }
+            
+            /* Секция видео: честные 16/10 для мягкого кропа без потери качества */
+            .hero-section {
+                width: 100vw;
+                height: auto;
+                aspect-ratio: 16 / 10; 
+            }
 
-    .hero-section video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        /* Растягиваем видео по высоте секции, чтобы края ушли за пределы */
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        /* Центрируем видео, чтобы кроп был равномерным слева и справа */
-        transform: translate(-50%, -50%);
-        object-fit: cover;
-    }
+            /* Нативный рендеринг без размытия пикселей */
+            .hero-section video {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-    /* Отступы текста под видео */
-    .about-section { 
-        padding: 3rem 1.5rem 2rem 1.5rem; 
-    }
-    .about-text { font-size: 1.8rem; margin-bottom: 2rem; }
-    .about-subtext { font-size: 1.1rem; margin-bottom: 3.5rem; }
-    .experience-section { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem 5rem 1.5rem; }
-    .footer-section { padding: 0 1.5rem 4rem 1.5rem; flex-direction: column; gap: 1rem; }
-}
+            /* Аккуратная журнальная верстка текста */
+            .about-section { 
+                padding: 2.5rem 1.5rem 2rem 1.5rem; 
+            }
+            
+            .about-text { 
+                font-size: 1.4rem; 
+                line-height: 1.3;
+                margin-bottom: 1.5rem; 
+                letter-spacing: -0.2px;
+            }
+            
+            .about-subtext { 
+                font-size: 1rem; 
+                margin-bottom: 3rem; 
+            }
+            
+            .experience-section { 
+                grid-template-columns: 1fr; 
+                gap: 2.5rem; 
+                padding: 0 1.5rem 4rem 1.5rem; 
+            }
+            
+            .exp-column h3 {
+                font-size: 1.2rem;
+            }
+            
+            .exp-list {
+                font-size: 1rem;
+            }
+            
+            .footer-section { 
+                padding: 0 1.5rem 4rem 1.5rem; 
+                flex-direction: column; 
+                gap: 1rem; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -271,8 +291,8 @@
 
     <!-- Секция 4: Контакты -->
     <footer class="footer-section">
-        <a href="mailto:твой-email@example.com" class="footer-link">Email</a>
-        <a href="https://linkedin.com/in/твой-профиль" target="_blank" class="footer-link">LinkedIn</a>
+        <a href="mailto:hello@nikitasav.xyz" class="footer-link">Email</a>
+        <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
     </footer>
 
     <!-- Скрипт для ультра-плавного кастомного скролла -->
@@ -284,10 +304,9 @@
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
             const startPosition = window.pageYOffset;
             const distance = targetPosition - startPosition;
-            const duration = 1200; // Время анимации в миллисекундах (чем больше, тем медленнее и плавнее)
+            const duration = 1200; // Время анимации в мс
             let start = null;
 
-            // Функция плавного замедления (Ease-Out Cubic)
             function ease(t, b, c, d) {
                 t /= d;
                 t--;
