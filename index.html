@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        /* Навигационная панель поверх видео */
+        .nav-container {
+            position: absolute;
+            top: 2rem;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+            z-index: 10;
+        }
+
+        /* Имя автора слева */
+        .nav-logo {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        /* Блок ссылок справа */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            border-bottom: 1px solid #ffffff;
+        }
+
+        /* Секция 1: Полноэкранный шоурил */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .hero-section video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Секция 2: Текст манифеста */
+        .about-section {
+            max-width: 1200px;
+            padding: 5rem 3rem 3rem 3rem;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            font-weight: 400;
+            color: #111111;
+            max-width: 900px;
+            letter-spacing: -0.5px;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-subtext {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            color: #444444;
+            max-width: 900px;
+            margin-bottom: 4.5rem;
+        }
+
+        /* Трехколоночная сетка */
+        .experience-section {
+            max-width: 1200px;
+            padding: 0 3rem 6rem 3rem;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .exp-column h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 1.5rem;
+        }
+
+        .exp-list {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #333333;
+            list-style: none;
+        }
+
+        .exp-list li {
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .exp-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 5px;
+            height: 5px;
+            background-color: #000000;
+        }
+
+        /* Контакты */
+        .footer-section {
+            max-width: 1200px;
+            padding: 0 3rem 4rem 3rem;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-link {
+            font-size: 1.1rem;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .footer-link:hover {
+            border-bottom: 1px solid #000000;
+        }
+
+        /* Мобильная адаптивность */
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 1.5rem; top: 1.5rem; }
+            .about-section { padding: 4rem 1.5rem 2rem 1.5rem; }
+            .about-text { font-size: 1.8rem; margin-bottom: 2rem; }
+            .about-subtext { font-size: 1.1rem; margin-bottom: 3.5rem; }
+            .experience-section { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem 5rem 1.5rem; }
+            .footer-section { padding: 0 1.5rem 4rem 1.5rem; flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Меню поверх первого экрана -->
+    <nav class="nav-container">
+        <div class="nav-logo">Nikita sav</div>
+        <div class="nav-links">
+            <a href="#info" class="nav-link" id="info-trigger">Info</a>
+        </div>
+    </nav>
+
+    <!-- Секция 1: Полноэкранный шоурил -->
+    <section class="hero-section">
+        <video autoplay loop muted playsinline>
+            <source src="reel.webm" type="video/webm">
+            <source src="reel.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <!-- Секция 2: Текст манифеста -->
+    <section id="info" class="about-section">
+        <h1 class="about-text">
+            I can single-handedly build complex procedural setups and render them fast and beautiful.
+        </h1>
+        <p class="about-subtext">
+            My unique angle is combining a strong understanding of art and visuals with the ability to solve complex technical problems. I hold an MA with Distinction from Chelsea College of Arts and have a background in creative coding, interactive installations, and full CG commercials.
+        </p>
+    </section>
+
+    <!-- Секция 3: Опыт и софт -->
+    <section class="experience-section">
+        <div class="exp-column">
+            <h3>Worked with:</h3>
+            <ul class="exp-list">
+                <li>Zhesktov Studio</li>
+                <li>The Fabricant</li>
+                <li>Fluent Studio</li>
+            </ul>
+        </div>
+        <div class="exp-column">
+            <h3>Brands:</h3>
+            <ul class="exp-list">
+                <li>Dyson</li>
+                <li>Samsung</li>
+                <li>SKII</li>
+                <li>H&M</li>
+                <li>Adidas</li>
+            </ul>
+        </div>
+        <div class="exp-column">
+            <h3>Tools:</h3>
+            <ul class="exp-list">
+                <li>Houdini</li>
+                <li>C4d</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Секция 4: Контакты -->
+    <footer class="footer-section">
+        <a href="mailto:твой-email@example.com" class="footer-link">Email</a>
+        <a href="https://linkedin.com/in/твой-профиль" target="_blank" class="footer-link">LinkedIn</a>
+    </footer>
+
+    <!-- Скрипт для ультра-плавного кастомного скролла -->
+    <script>
+        document.getElementById('info-trigger').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const target = document.getElementById('info');
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 1200; // Время анимации в миллисекундах (чем больше, тем медленнее и плавнее)
+            let start = null;
+
+            // Функция плавного замедления (Ease-Out Cubic)
+            function ease(t, b, c, d) {
+                t /= d;
+                t--;
+                return c * (t * t * t + 1) + b;
+            }
+
+            function animation(currentTime) {
+                if (start === null) start = currentTime;
+                const timeElapsed = currentTime - start;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            requestAnimationFrame(animation);
+        });
+    </script>
+
+</body>
+</html>
