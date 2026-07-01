@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Nikita Sav — Houdini / CG Artist</title>
-    <link rel="icon" type="image/png" href="favicon.png">
     <meta name="description" content="Procedural setups, simulations, and digital art production. Based in London.">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -37,7 +40,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 3.7rem;
+            padding: 0 2.5rem; 
             z-index: 100;
             transition: color 0.4s ease;
         }
@@ -217,10 +220,8 @@
             transition: opacity 0.2s ease;
         }
 
-        /* Мобильный адаптив */
-/* Мобильный адаптив */
+        /* МОБИЛЬНЫЙ АДАПТИВ */
         @media (max-width: 768px) {
-            /* Оптимальный отступ для мобильных экранов, чтобы текст не зажимался */
             .nav-container { 
                 padding: 0 1.5rem; 
                 top: 1.5rem; 
@@ -243,7 +244,6 @@
                 height: 100%; 
             }
             
-            /* Уменьшаем пустой зазор сверху на мобилке */
             .about-section { 
                 padding: 5rem 0 2rem 0; 
             }
@@ -252,15 +252,13 @@
                 margin-bottom: 1.2rem; 
             }
             
-            /* Делаем главный манифест плотным и собранным */
             .about-text { 
                 font-size: 1.85rem; 
                 line-height: 1.2; 
-                letter-spacing: -0.05em; /* Зажали буквы для монолитности */
+                letter-spacing: -0.05em; 
                 margin-bottom: 2rem; 
             }
             
-            /* Аккуратный читаемый подтекст */
             .about-subtext { 
                 font-size: 1.05rem; 
                 line-height: 1.5;
@@ -295,7 +293,7 @@
     </nav>
 
     <section class="hero-section" id="hero">
-        <video autoplay loop muted playsinline>
+        <video id="hero-video" autoplay muted playsinline>
             <source src="reel.webm" type="video/webm">
             <source src="reel.mp4" type="video/mp4">
         </video>
@@ -359,10 +357,30 @@
             <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
         </footer>
 
-    </div> <script>
+    </div>
+
+    <script>
         const nav = document.getElementById('main-nav');
-        const infoSection = document.getElementById('info');
         const heroSection = document.getElementById('hero');
+        const video = document.getElementById('hero-video');
+        let loopCount = 0;
+
+        // Корректный перезапуск видео в Хроме
+        if (video) {
+            video.addEventListener('ended', function() {
+                loopCount++;
+                
+                // Каждые 5 циклов мягко обновляем src, чтобы очистить кэш кадров в Хроме
+                if (loopCount % 5 === 0) {
+                    const currentSrc = this.currentSrc;
+                    this.src = '';
+                    this.src = currentSrc;
+                } else {
+                    this.currentTime = 0;
+                }
+                this.play();
+            }, false);
+        }
 
         // Переключение цвета меню на основе скролла видео
         window.addEventListener('scroll', function() {
@@ -374,6 +392,7 @@
             }
         });
 
+        // Плавный скролл
         function smoothScrollTo(targetY, duration) {
             const startPosition = window.pageYOffset;
             const distance = targetY - startPosition;
@@ -395,22 +414,24 @@
             requestAnimationFrame(animation);
         }
 
-        // ИЗМЕНЕННАЯ ЛОГИКА СКРОЛЛА: Скроллим прямо к текстовому заголовку роли
+        // Клик по кнопке Info с автоопределением устройства
         document.getElementById('info-trigger').addEventListener('click', function(e) {
             e.preventDefault();
             const targetElement = document.getElementById('scroll-target');
             if (targetElement) {
-                // Вычитаем 60px, чтобы текст не упирался в самый верх экрана
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+                const offset = window.innerWidth <= 768 ? 70 : 110;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
                 smoothScrollTo(targetPosition, 1200);
             }
         });
 
+        // Клик по логотипу — возврат наверх
         document.getElementById('logo-trigger').addEventListener('click', function(e) {
             e.preventDefault();
             smoothScrollTo(0, 1200);
         });
 
+        // Копирование Email
         const emailButtons = document.querySelectorAll('.js-copy-email');
         emailButtons.forEach(button => {
             button.addEventListener('click', function(e) {
