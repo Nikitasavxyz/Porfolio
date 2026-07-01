@@ -18,9 +18,9 @@
             overflow-x: hidden;
         }
 
-        /* НАВИГАЦИЯ: теперь fixed, закреплена намертво */
+        /* НАВИГАЦИЯ: по умолчанию белая для первого экрана */
         .nav-container {
-            position: fixed; /* Меню не улетает при скролле */
+            position: fixed;
             top: 2rem;
             left: 0;
             width: 100%;
@@ -28,11 +28,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 3rem;
-            z-index: 100; /* Самый высокий слой, чтобы текст не уходил под блоки */
-            mix-blend-mode: difference; /* Магия: инвертирует белый цвет в черный на белом фоне */
+            z-index: 100;
+            transition: color 0.4s ease; /* Плавная смена цвета */
         }
 
-        /* Цвет лого и ссылок по умолчанию ставим белым — на белом фоне он станет черным */
         .nav-logo {
             font-size: 1.1rem;
             color: #ffffff; 
@@ -40,6 +39,8 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             user-select: none;
+            cursor: pointer;
+            transition: color 0.4s ease;
         }
 
         .nav-links {
@@ -55,12 +56,18 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, color 0.4s ease;
             cursor: pointer;
         }
 
         .nav-link:hover {
-            border-bottom: 1px solid #ffffff;
+            border-bottom: 1px solid currentColor;
+        }
+
+        /* КЛАСС ДЛЯ ЧЕРНОГО МЕНЮ: активируется скриптом на белом фоне */
+        .nav-container.dark-mode .nav-logo,
+        .nav-container.dark-mode .nav-link {
+            color: #000000;
         }
 
         /* Секция 1: Полноэкранный шоурил (Десктоп) */
@@ -87,6 +94,16 @@
             max-width: 1200px;
             padding: 5rem 3rem 3rem 3rem;
             margin: 0 auto;
+        }
+
+        /* Строка роли над главным заголовком */
+        .about-role {
+            font-size: 1.025rem;
+            font-weight: 500;
+            color: #777777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.2rem;
         }
 
         .about-text {
@@ -186,6 +203,11 @@
             .about-section { 
                 padding: 2rem 1.5rem 1.5rem 1.5rem; 
             }
+
+            .about-role {
+                font-size: 0.85rem;
+                margin-bottom: 0.8rem;
+            }
             
             .about-text { 
                 font-size: 1.2rem; 
@@ -231,16 +253,16 @@
 </head>
 <body>
 
-    <!-- Меню зафиксировано поверх всего содержимого -->
-    <nav class="nav-container">
-        <div class="nav-logo">Nikita sav</div>
+    <!-- Меню -->
+    <nav class="nav-container" id="main-nav">
+        <div class="nav-logo" id="logo-trigger">Nikita sav</div>
         <div class="nav-links">
             <a href="#info" class="nav-link" id="info-trigger">Info</a>
         </div>
     </nav>
 
     <!-- Секция 1: Полноэкранный шоурил -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <video autoplay loop muted playsinline>
             <source src="reel.webm" type="video/webm">
             <source src="reel.mp4" type="video/mp4">
@@ -249,6 +271,7 @@
 
     <!-- Секция 2: Текст манифеста -->
     <section id="info" class="about-section">
+        <div class="about-role">Houdini / CG Artist</div>
         <h1 class="about-text">
             I single-handedly build complex procedural setups, and make them beautiful.
         </h1>
@@ -295,16 +318,27 @@
         <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
     </footer>
 
-    <!-- Скрипт для ультра-плавного кастомного скролла -->
+    <!-- Скрипты для навигации и смены цвета -->
     <script>
-        document.getElementById('info-trigger').addEventListener('click', function(e) {
-            e.preventDefault();
+        const nav = document.getElementById('main-nav');
+        const infoSection = document.getElementById('info');
+
+        // 1. Умное переключение цвета при скролле
+        window.addEventListener('scroll', function() {
+            const infoRect = infoSection.getBoundingClientRect();
             
-            const target = document.getElementById('info');
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            // Если верхняя граница зоны Info дошла до уровня меню (около 32px сверху)
+            if (infoRect.top <= 32) {
+                nav.classList.add('dark-mode'); // Делаем меню черным
+            } else {
+                nav.classList.remove('dark-mode'); // Возвращаем белый цвет на видео
+            }
+        });
+
+        // Кастомная функция плавного скролла (ease-out)
+        function smoothScrollTo(targetY, duration) {
             const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            const duration = 1200; 
+            const distance = targetY - startPosition;
             let start = null;
 
             function ease(t, b, c, d) {
@@ -320,8 +354,20 @@
                 window.scrollTo(0, run);
                 if (timeElapsed < duration) requestAnimationFrame(animation);
             }
-
             requestAnimationFrame(animation);
+        }
+
+        // 2. Клик по Info — скролл вниз
+        document.getElementById('info-trigger').addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetPosition = infoSection.getBoundingClientRect().top + window.pageYOffset;
+            smoothScrollTo(targetPosition, 1200);
+        });
+
+        // 3. Клик по Nikita sav — скролл в самый верх
+        document.getElementById('logo-trigger').addEventListener('click', function(e) {
+            e.preventDefault();
+            smoothScrollTo(0, 1200);
         });
     </script>
 
