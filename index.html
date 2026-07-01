@@ -31,11 +31,11 @@
             position: fixed;
             top: 2.5rem;
             left: 0;
-            width: 100%;
+            width: 100vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 4rem;
+            padding: 0 5rem;
             z-index: 100;
             transition: color 0.4s ease;
         }
@@ -101,11 +101,16 @@
             transform: translate(-50%, -50%);
         }
 
+        /* ГЛОБАЛЬНЫЙ КОНТЕЙНЕР ДЛЯ ЦЕНТРАЛЬНОГО КОНТЕНТА */
+        .page-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5rem;
+        }
+
         /* Секция 2: Текст манифеста */
         .about-section {
-            max-width: 1250px;
-            padding: 8rem 4rem 2rem 4rem;
-            margin: 0 auto;
+            padding: 14rem 0 2rem 0;
         }
 
         .about-role {
@@ -120,7 +125,7 @@
         .about-text {
             font-size: 2.75rem;
             line-height: 1.2;
-            font-weight: 500;
+            font-weight: 600;
             color: #000000;
             max-width: 1000px;
             letter-spacing: -0.04em;
@@ -130,7 +135,8 @@
         .about-subtext {
             font-size: 1.15rem;
             line-height: 1.6;
-            color: #444444;
+            color: #333333;
+            font-weight: 400;
             max-width: 850px;
             letter-spacing: -0.01em;
             margin-bottom: 2.5rem;
@@ -153,17 +159,15 @@
             border-bottom: 1px solid #000000;
             margin-left: 0.3rem;
             cursor: pointer;
+            font-weight: 500;
         }
 
         /* Трехколоночная сетка */
         .experience-section {
-            max-width: 1250px;
-            padding: 0 4rem 6rem 4rem; /* Оставили свободное пространство снизу */
-            margin: 0 auto;
+            padding: 0 0 6rem 0;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 4rem;
-            border-top: none; /* УБРАЛИ ЛИШНЮЮ ВЕРХНЮЮ ЛИНИЮ */
         }
 
         .exp-column h3 {
@@ -186,13 +190,10 @@
 
         /* Контакты */
         .footer-section {
-            max-width: 1250px;
-            padding: 0 4rem 6rem 4rem;
-            margin: 0 auto;
+            padding: 3rem 0 6rem 0;
             display: flex;
             gap: 3rem;
-            border-top: 1px solid #e5e5e5; /* Оставили ОДНУ чистую линию здесь */
-            padding-top: 3rem;
+            border-top: 1px solid #e5e5e5;
         }
 
         .footer-link {
@@ -217,15 +218,16 @@
         /* Мобильный адаптив */
         @media (max-width: 768px) {
             .nav-container { padding: 0 2rem; top: 1.5rem; }
+            .page-container { padding: 0 2rem; }
             .hero-section { width: 100vw; height: auto; aspect-ratio: 16 / 9; }
             .hero-section video { position: relative; top: auto; left: auto; transform: none; width: 100%; height: 100%; }
-            .about-section { padding: 4rem 2rem 2rem 2rem; }
+            .about-section { padding: 6rem 0 2rem 0; }
             .about-role { font-size: 0.75rem; margin-bottom: 1rem; }
             .about-text { font-size: 1.75rem; line-height: 1.25; margin-bottom: 1.5rem; }
             .about-subtext { font-size: 1rem; margin-bottom: 1.5rem; }
             .about-cta { font-size: 1rem; margin-bottom: 4rem; }
-            .experience-section { grid-template-columns: 1fr; gap: 3rem; padding: 0 2rem 4rem 2rem; }
-            .footer-section { padding: 2rem 2rem 4rem 2rem; flex-direction: column; gap: 1rem; }
+            .experience-section { grid-template-columns: 1fr; gap: 3rem; padding: 2rem 0 4rem 0; }
+            .footer-section { padding: 2rem 0 4rem 0; flex-direction: column; gap: 1rem; }
         }
     </style>
 </head>
@@ -245,69 +247,73 @@
         </video>
     </section>
 
-    <section id="info" class="about-section font-inter">
-        <div class="about-role">Houdini / CG Artist</div>
-        <h1 class="about-text">
-            I single-handedly build complex procedural setups, and make them beautiful.
-        </h1>
-        <p class="about-subtext">
-            I combine a strong art eye with the technical range to solve complex problems — simulations, procedural systems, whatever the shot needs. MA with Distinction from Chelsea College of Arts, with a background in creative coding, interactive installations, and full CG commercials. Based in London.
-        </p>
-        <div class="about-cta">
-            Get in touch: 
-            <a class="manifesto-email-link js-copy-email" data-email="hello@nikitasav.xyz">
-                <span class="email-text">hello@nikitasav.xyz</span>
+    <div class="page-container">
+
+        <section id="info" class="about-section font-inter">
+            <div class="about-role" id="scroll-target">Houdini / CG Artist</div>
+            <h1 class="about-text">
+                I single-handedly build complex procedural setups, and make them beautiful.
+            </h1>
+            <p class="about-subtext">
+                I combine a strong art eye with the technical range to solve complex problems — simulations, procedural systems, whatever the shot needs. MA with Distinction from Chelsea College of Arts, with a background in creative coding, interactive installations, and full CG commercials. Based in London.
+            </p>
+            <div class="about-cta">
+                Get in touch: 
+                <a class="manifesto-email-link js-copy-email" data-email="hello@nikitasav.xyz">
+                    <span class="email-text">hello@nikitasav.xyz</span>
+                    <span class="copied-text" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; color: #777777;">Copied!</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="experience-section font-inter">
+            <div class="exp-column">
+                <h3>Worked with:</h3>
+                <ul class="exp-list">
+                    <li>Zhesktov Studio</li>
+                    <li>The Fabricant</li>
+                    <li>Fluent Studio</li>
+                </ul>
+            </div>
+            <div class="exp-column">
+                <h3>Brands:</h3>
+                <ul class="exp-list">
+                    <li>Dyson</li>
+                    <li>Samsung</li>
+                    <li>SKII</li>
+                    <li>H&M</li>
+                    <li>Adidas</li>
+                </ul>
+            </div>
+            <div class="exp-column">
+                <h3>Tools:</h3>
+                <ul class="exp-list">
+                    <li>Houdini</li>
+                    <li>C4D</li>
+                    <li>Redshift</li>
+                    <li>Octane</li>
+                    <li>Touchdesigner</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="footer-section font-inter">
+            <a href="#" class="footer-link js-copy-email" data-email="hello@nikitasav.xyz" style="position: relative;">
+                <span class="email-text">Email</span>
                 <span class="copied-text" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; color: #777777;">Copied!</span>
             </a>
-        </div>
-    </section>
+            <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
+        </footer>
 
-    <section class="experience-section font-inter">
-        <div class="exp-column">
-            <h3>Worked with:</h3>
-            <ul class="exp-list">
-                <li>Zhesktov Studio</li>
-                <li>The Fabricant</li>
-                <li>Fluent Studio</li>
-            </ul>
-        </div>
-        <div class="exp-column">
-            <h3>Brands:</h3>
-            <ul class="exp-list">
-                <li>Dyson</li>
-                <li>Samsung</li>
-                <li>SKII</li>
-                <li>H&M</li>
-                <li>Adidas</li>
-            </ul>
-        </div>
-        <div class="exp-column">
-            <h3>Tools:</h3>
-            <ul class="exp-list">
-                <li>Houdini</li>
-                <li>C4D</li>
-                <li>Redshift</li>
-                <li>Octane</li>
-                <li>Touchdesigner</li>
-            </ul>
-        </div>
-    </section>
-
-    <footer class="footer-section font-inter">
-        <a href="#" class="footer-link js-copy-email" data-email="hello@nikitasav.xyz" style="position: relative;">
-            <span class="email-text">Email</span>
-            <span class="copied-text" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; color: #777777;">Copied!</span>
-        </a>
-        <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
-    </footer>
-
-    <script>
+    </div> <script>
         const nav = document.getElementById('main-nav');
         const infoSection = document.getElementById('info');
+        const heroSection = document.getElementById('hero');
 
+        // Переключение цвета меню на основе скролла видео
         window.addEventListener('scroll', function() {
-            const infoRect = infoSection.getBoundingClientRect();
-            if (infoRect.top <= 32) {
+            const heroRect = heroSection.getBoundingClientRect();
+            if (heroRect.bottom <= 60) {
                 nav.classList.add('dark-mode'); 
             } else {
                 nav.classList.remove('dark-mode'); 
@@ -335,10 +341,15 @@
             requestAnimationFrame(animation);
         }
 
+        // ИЗМЕНЕННАЯ ЛОГИКА СКРОЛЛА: Скроллим прямо к текстовому заголовку роли
         document.getElementById('info-trigger').addEventListener('click', function(e) {
             e.preventDefault();
-            const targetPosition = infoSection.getBoundingClientRect().top + window.pageYOffset;
-            smoothScrollTo(targetPosition, 1200);
+            const targetElement = document.getElementById('scroll-target');
+            if (targetElement) {
+                // Вычитаем 60px, чтобы текст не упирался в самый верх экрана
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+                smoothScrollTo(targetPosition, 1200);
+            }
         });
 
         document.getElementById('logo-trigger').addEventListener('click', function(e) {
