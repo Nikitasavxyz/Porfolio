@@ -29,7 +29,7 @@
             align-items: center;
             padding: 0 3rem;
             z-index: 100;
-            transition: color 0.4s ease; /* Плавная смена цвета */
+            transition: color 0.4s ease;
         }
 
         .nav-logo {
@@ -40,7 +40,12 @@
             letter-spacing: 1px;
             user-select: none;
             cursor: pointer;
-            transition: color 0.4s ease;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s, color 0.4s ease;
+        }
+
+        .nav-logo:hover {
+            border-bottom: 1px solid currentColor;
         }
 
         .nav-links {
@@ -64,7 +69,7 @@
             border-bottom: 1px solid currentColor;
         }
 
-        /* КЛАСС ДЛЯ ЧЕРНОГО МЕНЮ: активируется скриптом на белом фоне */
+        /* КЛАСС ДЛЯ ЧЕРНОГО МЕНЮ */
         .nav-container.dark-mode .nav-logo,
         .nav-container.dark-mode .nav-link {
             color: #000000;
@@ -96,7 +101,6 @@
             margin: 0 auto;
         }
 
-        /* Строка роли над главным заголовком */
         .about-role {
             font-size: 1.025rem;
             font-weight: 500;
@@ -175,6 +179,11 @@
 
         .footer-link:hover {
             border-bottom: 1px solid #000000;
+        }
+
+        /* Анимация переключения слоев внутри ссылки */
+        .email-text, .copied-text {
+            transition: opacity 0.2s ease;
         }
 
         /* Мобильная адаптивность */
@@ -314,11 +323,14 @@
 
     <!-- Секция 4: Контакты -->
     <footer class="footer-section">
-        <a href="mailto:hello@nikitasav.xyz" class="footer-link">Email</a>
+        <a href="#" class="footer-link" id="email-copy" data-email="hello@nikitasav.xyz" style="position: relative;">
+            <span class="email-text">Email</span>
+            <span class="copied-text" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; color: #777777;">Copied!</span>
+        </a>
         <a href="https://linkedin.com/in/" target="_blank" class="footer-link">LinkedIn</a>
     </footer>
 
-    <!-- Скрипты для навигации и смены цвета -->
+    <!-- Скрипты для навигации, смены цвета и копирования -->
     <script>
         const nav = document.getElementById('main-nav');
         const infoSection = document.getElementById('info');
@@ -326,12 +338,10 @@
         // 1. Умное переключение цвета при скролле
         window.addEventListener('scroll', function() {
             const infoRect = infoSection.getBoundingClientRect();
-            
-            // Если верхняя граница зоны Info дошла до уровня меню (около 32px сверху)
             if (infoRect.top <= 32) {
-                nav.classList.add('dark-mode'); // Делаем меню черным
+                nav.classList.add('dark-mode'); 
             } else {
-                nav.classList.remove('dark-mode'); // Возвращаем белый цвет на видео
+                nav.classList.remove('dark-mode'); 
             }
         });
 
@@ -369,6 +379,33 @@
             e.preventDefault();
             smoothScrollTo(0, 1200);
         });
+
+        // 4. Безопасное копирование email в буфер обмена без ломания стилей
+        const emailBtn = document.getElementById('email-copy');
+        if (emailBtn) {
+            emailBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Полностью блокируем прыжок наверх
+                
+                const email = this.getAttribute('data-email') || 'hello@nikitasav.xyz';
+                const mainText = this.querySelector('.email-text');
+                const copiedText = this.querySelector('.copied-text');
+
+                navigator.clipboard.writeText(email).then(() => {
+                    // Анимируем прозрачность слоев
+                    mainText.style.opacity = '0';
+                    copiedText.style.opacity = '1';
+                    this.style.pointerEvents = 'none'; // Блокируем клики на время показа
+
+                    setTimeout(() => {
+                        mainText.style.opacity = '1';
+                        copiedText.style.opacity = '0';
+                        this.style.pointerEvents = 'auto'; // Снова активируем кнопку
+                    }, 1500);
+                }).catch(err => {
+                    alert('Email copied: ' + email);
+                });
+            });
+        }
     </script>
 
 </body>
