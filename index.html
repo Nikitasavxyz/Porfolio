@@ -18,9 +18,9 @@
             overflow-x: hidden;
         }
 
-        /* Навигационная панель поверх видео */
+        /* НАВИГАЦИЯ: теперь fixed, закреплена намертво */
         .nav-container {
-            position: absolute;
+            position: fixed; /* Меню не улетает при скролле */
             top: 2rem;
             left: 0;
             width: 100%;
@@ -28,20 +28,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 3rem;
-            z-index: 10;
+            z-index: 100; /* Самый высокий слой, чтобы текст не уходил под блоки */
+            mix-blend-mode: difference; /* Магия: инвертирует белый цвет в черный на белом фоне */
         }
 
-        /* Имя автора слева */
+        /* Цвет лого и ссылок по умолчанию ставим белым — на белом фоне он станет черным */
         .nav-logo {
             font-size: 1.1rem;
-            color: #ffffff;
+            color: #ffffff; 
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             user-select: none;
         }
 
-        /* Блок ссылок справа */
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -122,19 +122,19 @@
             font-weight: 600;
             color: #000000;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.2px; /* Прижали буквы для аккуратности */
+            letter-spacing: -0.2px;
         }
 
         .exp-list {
             font-size: 1.025rem;
             line-height: 1.8;
             color: #333333;
-            list-style: none; /* Убрали дефолтные маркеры */
+            list-style: none;
         }
 
         .exp-list li {
             position: relative;
-            padding-left: 0; /* Выровняли текст строго по левому краю */
+            padding-left: 0;
             letter-spacing: -0.1px;
         }
 
@@ -231,7 +231,7 @@
 </head>
 <body>
 
-    <!-- Меню поверх первого экрана -->
+    <!-- Меню зафиксировано поверх всего содержимого -->
     <nav class="nav-container">
         <div class="nav-logo">Nikita sav</div>
         <div class="nav-links">
@@ -284,8 +284,7 @@
                 <li>C4D</li>
                 <li>Redshift</li>
                 <li>Octane</li>
-                <li>Touchdesginer</li>
-
+                <li>Touchdesigner</li>
             </ul>
         </div>
     </section>
