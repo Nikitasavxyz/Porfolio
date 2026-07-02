@@ -103,6 +103,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: left center;
             z-index: 1;
         }
 
@@ -191,6 +192,18 @@
             list-style: none;
             font-weight: 400;
             letter-spacing: -0.01em;
+        }
+
+        /* Стили для ссылок студий в списке */
+        .studio-link {
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .studio-link:hover {
+            border-bottom: 1px solid #000000;
         }
 
         /* Контакты */
@@ -328,9 +341,9 @@
             <div class="exp-column">
                 <h3>Worked with:</h3>
                 <ul class="exp-list">
-                    <li>Zhesktov Studio</li>
-                    <li>The Fabricant</li>
-                    <li>Fluent Studio</li>
+                    <li><a href="https://zhestkov.studio" target="_blank" class="studio-link">Zhesktov Studio</a></li>
+                    <li><a href="https://www.fluentstudio.co.uk/" target="_blank" class="studio-link">Fluent Studio</a></li>
+                    <li><a href="https://www.thefabricant.com/" target="_blank" class="studio-link">The Fabricant</a></li>
                 </ul>
             </div>
             <div class="exp-column">
