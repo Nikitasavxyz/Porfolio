@@ -96,6 +96,7 @@
             overflow: hidden;
         }
 
+        /* Десктопное видео: жестко привязано влево, чтобы титры не плавали */
         .hero-section video {
             position: absolute;
             top: 0;
@@ -233,7 +234,7 @@
             transition: opacity 0.2s ease;
         }
 
-        /* МОБИЛЬНЫЙ АДАПТИВ (ТВОЙ ВАРИАНТ БЕЗ ИЗМЕНЕНИЙ) */
+        /* МОБИЛЬНЫЙ АДАПТИВ (ТВОЙ ВАРИАНТ С ЦЕНТРОВКОЙ) */
         @media (max-width: 768px) {
             .nav-container { 
                 padding: 0 1.5rem; 
@@ -261,6 +262,7 @@
                 width: 106%; 
                 height: 106%; 
                 object-fit: cover;
+                object-position: center center; /* Фиксируем идеальный центр на мобилках */
             }
             
             .about-section { 
@@ -313,8 +315,13 @@
 
     <section class="hero-section" id="hero">
         <video id="hero-video" autoplay muted playsinline>
-            <source src="reel.webm" type="video/webm">
-            <source src="reel.mp4" type="video/mp4">
+            <!-- Для десктопов (ширина больше 768px) загружаем десктопную версию -->
+            <source src="reel.webm" type="video/webm" media="(min-width: 769px)">
+            <source src="reel.mp4" type="video/mp4" media="(min-width: 769px)">
+            
+            <!-- Для мобилок (ширина 768px и меньше) загружаем reel_mobile.webm -->
+            <source src="reel_mobile.webm" type="video/webm" media="(max-width: 768px)">
+            <source src="reel_mobile.mp4" type="video/mp4" media="(max-width: 768px)">
         </video>
     </section>
 
